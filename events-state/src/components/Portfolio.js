@@ -96,32 +96,27 @@ export class Portfolio extends React.Component {
         }
     ];
 
-    filtered = this.projects.slice();
-
     selectFilter = filter => {
-        this.setState({selected:filter});
-        this.setProjects(filter);
+      this.setState({selected:filter});
     };
-
-    setProjects = (filter) => {
-        if (filter === "All") {
-            this.filtered = this.projects.slice();
-        } else {
-            this.filtered = this.projects.filter(project => (project.category === filter));
-        }
-    }
-
+    
     render() {
-        return(
-            <>
-                <Toolbar
-                    filters={["All", "Websites", "Flayers", "Business Cards"]}
-                    selected={this.state.selected}
-                    onSelectFilter={this.selectFilter} 
-                />
-                <ProjectList projects={this.filtered} />
-            </>
-        )
+      let filteredProjects = [];
+      if (this.state.selected === "All") {
+        filteredProjects = this.projects.slice();
+      } else {
+        filteredProjects = this.projects.filter(project => (project.category === this.state.selected));
+      }
+      return (
+        <>
+          <Toolbar
+            filters={["All", "Websites", "Flayers", "Business Cards"]}
+            selected={this.state.selected}
+            onSelectFilter={this.selectFilter}
+          />
+          <ProjectList projects={filteredProjects} />
+        </>
+      )
     }
 
 }

@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 function Toolbar(props) {
-    const onSelectFilter = event => {
-        props.onSelectFilter(event.target.textContent)
-    }
+
 
     return (
         props.filters.map((filter) =>
             <button key={filter}
-              onClick={onSelectFilter}
+              onClick={() => {
+                props.onSelectFilter(filter)
+              }}
               className={filter === props.selected ? 'selected' : 'not-selected'}>
               {filter}
             </button>
